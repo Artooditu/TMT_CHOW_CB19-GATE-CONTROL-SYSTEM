@@ -23,7 +23,7 @@ class Gate : Driver
     mqtt.subscribe("/test")
     mqtt.subscribe("/Gate/set/percentage")
     mqtt.subscribe("/Gate/set/ped_percentage")
-    print "connected MQTT"
+    print('connected MQTT')
   end
   
   def remove()
