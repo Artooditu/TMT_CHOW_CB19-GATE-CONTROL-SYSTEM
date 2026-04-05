@@ -43,7 +43,7 @@ Also you need to create an autoexec.be which will be run on each startup, and ma
 
 Tasmota done, now Home Assistant:
 
-Add lines https://github.com/Artooditu/TMT_CHOW_CB19-GATE-CONTROL-SYSTEM/blob/main/configuration.yaml to configuration.yaml
+Add lines [configuration](https://github.com/Artooditu/TMT_CHOW_CB19-GATE-CONTROL-SYSTEM/blob/main/configuration.yaml) to configuration.yaml
 
 
 I also left the control box documentation attached if needed, but did not expose the settings as if should never be changed once the gate is installed. Also this can be done at the gate:
