@@ -31,13 +31,9 @@ RX
 TX
 GND
 
-Soldering it to an ESP
+Instead of soldering I used krimped NSR style connectors for ESP connection, my goal is to save the original cable and device as a backup concept and store it in the drawer and never ever use it again :D
 
-<img src="https://github.com/RPJacobs/CB19-GATE-CONTROL-SYSTEM/blob/main/img/esp.jpg?raw=true" width=20% height=20%>
 
-Now we need to bridge it to another ESP, connected to the CB19 control box. I used esp-link for that (https://github.com/jeelabs/esp-link)
-
-Wrote a small program to attach the tmt wifi unit to the esp-link module [tmt-reverse.ino](tmt-reverse.ino) now we have a MITM serial proxy!
 
 After opening the TMT app we can see the serial traffic between the tmt module and the cb19 box. This is in plain text!
 
