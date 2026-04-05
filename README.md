@@ -5,6 +5,9 @@ Who did the majority from which uppon I made modifications to make the codes mor
 
 Removing my TMT CHOW remote gate control, because it connects to an external server (security risk). Intergrate RS323 via ESP32 with MQTT > Homeassistant
 
+Step 0: History of the project:
+RPJacobs did the investigation and found out that TMT-Chow module and Mainboard uses unencrytpted unauthenticated text based commands on a serial. My rewrite will only focus on the remote operation and status read.
+
 Step 1:
 Open the TMT module
 
