@@ -1,5 +1,4 @@
-# UNDER WORK - NOT READY YET
-# First and formost, shoutout to RPJacobs 
+# First and foremost, shoutout to RPJacobs 
 Who did the majority from which uppon I made modifications to make the codes more lean and readable, and focusing only on the solution to create a local control of the CB19 board and rip out TMT-Chow from the equasion. Original source https://github.com/RPJacobs
 
 # CB19-GATE-CONTROL-SYSTEM
@@ -34,97 +33,21 @@ GND
 
 Instead of soldering I used krimped NSR style connectors for ESP connection, my goal is to save the original cable and device as a backup concept and store it in the drawer and never ever use it again :D
 
+After connecting the 5V RX TX GND you need to flash the ESP with Tasmota (https://tasmota.github.io/)
+You need to configure MQTT in Tasmota, **do not configure Serial, it is configured in Berry**
+
+In gatev2.be you may need to adapt the MQTT topic, it flies under the name:  self.topic_base = "**tasmota_gate_new**" (or you can just keep it and call it a day)
+
+Next step is to upload the gatev2.be to Berry (https://tasmota.github.io/docs/Berry/)
+Also you need to create an autoexec.be which will be run on each startup, and makes sure your gatev2.be is called.
+
+Tasmota done, now Home Assistant:
+
+Add lines https://github.com/Artooditu/TMT_CHOW_CB19-GATE-CONTROL-SYSTEM/blob/main/configuration.yaml to configuration.yaml
 
 
-After opening the TMT app we can see the serial traffic between the tmt module and the cb19 box. This is in plain text!
-
-Gate  : READ STATUS;src=P0004A83
-
-TMT   : ACK STATUS:FULL CLOSED,0
-
-We also get messages from $V1PKF0 (the box system controller, if a main event is triggerd:
-
-$V1PKF0,17,Closed;src=0001
-
-Pressing all the buttons gave me all het commands.
-
-PED OPEN
-FULL OPEN
-FULL CLOSE
-READ FUNCTION
-READ DEVINFO
-STOP
-
-Now it time to flash the esp connected to the control box with tasmota (https://tasmota.github.io/). It has the main funtions is easy to use and you van program drivers in berry (https://tasmota.github.io/docs/Berry/)
-
-So wrote a small berry file [gate.be](gate.be) , uploaded this to the tasmota esp connected to the control box and made a sort of serial to MQTT bridge.
-
-send you commands to /test
-
-feedback on /Gate
-
-In homebridge add a door-thing
-https://github.com/arachnetech/homebridge-mqttthing
-
-
-```json
-{
-            "accessory": "mqttthing",
-            "type": "door",
-            "name": "DualGate",
-            "url": "mqtt://10.x.x.x:1883",
-            "topics": {
-                "getCurrentPosition": "/Gate/percentage",
-                "setTargetPosition": "/Gate/set/percentage",
-                "getTargetPosition": "/Gate/set/updown",
-                "getPositionState": "/Gate/getState"
-            },
-            "positionStateValues": [
-                "DECREASING",
-                "INCREASING",
-                "STOPPED"
-            ],
-            "minPosition": 0,
-            "maxPosition": 99
-        },
-        {
-            "accessory": "mqttthing",
-            "type": "door",
-            "name": "Pedestrian",
-            "url": "mqtt://10.x.x.x:1883",
-            "topics": {
-                "getCurrentPosition": "/Gate/ped_percentage",
-                "setTargetPosition": "/Gate/set/ped_percentage",
-                "getPositionState": "/Gate/getPState"
-            },
-            "positionStateValues": [
-                "DECREASING",
-                "INCREASING",
-                "STOPPED"
-            ],
-            "minPosition": 0,
-            "maxPosition": 25
-        },
-
-```
-
-et voilà! No more TMT needed.
-
-To still be able to connect the tmt module to a fake control box I used a php script to act as the esp-link module.
-
-[server.php](server.php)
-
-Now we can also find the programm commands [commands.php](commands.php) not implemented in the gate.be file...
-
-READ FUNCTION;src=P0004A83 gives a string with all programmable items:
-
-ACK READ FUNCTION,1:1,2:01,3:01,4:4,5:4,6:4,7:1,8:2,9:7,A:1,B:1,C:0,D:1,E:0,F:0,G:0,H:1,I:2,J:0;src=P0004A83
-
-We can also write this string:
-
-WRITE FUNCTION,1:1,2:02,3:01,4:4,5:4,6:4,7:1,8:2,9:7,A:1,B:1,C:0,D:1,E:0,F:0,G:0,H:1,I:2,J:0;src=P0004A83
-
-Please check your control box documentation for all options. [CB19U-34100-125-10-C_CB19_manual_std_Wi-Fi_au.pdf](CB19U-34100-125-10-C_CB19_manual_std_Wi-Fi_au.pdf) page 10 & 11 7.2 parameters.
+I also left the control box documentation attached if needed, but did not expose the settings as if should never be changed once the gate is installed. Also this can be done at the gate:
+[CB19U-34100-125-10-C_CB19_manual_std_Wi-Fi_au.pdf](CB19U-34100-125-10-C_CB19_manual_std_Wi-Fi_au.pdf) 
 
 <img width="901" alt="Screenshot 2022-10-27 at 17 15 07" src="https://user-images.githubusercontent.com/14312145/198329367-f20a2907-8d3f-4c4d-8f33-9ec19f592087.png">
 
