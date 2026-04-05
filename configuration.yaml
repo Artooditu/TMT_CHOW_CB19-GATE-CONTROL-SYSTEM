@@ -1,0 +1,42 @@
+mqtt:
+  cover:
+    - name: "Driveway Gate"
+      unique_id: "driveway_gate_cover"
+      command_topic: "tasmota_gate_new/cmd"
+      payload_open: "OPEN"
+      payload_close: "CLOSE"
+      payload_stop: "STOP"
+      state_topic: "tasmota_gate_new/state"
+      state_opening: "opening"
+      state_open: "open"
+      state_closing: "closing"
+      state_closed: "closed"
+      state_stopped: "stopped"
+      position_topic: "tasmota_gate_new/position"
+      position_open: 95
+      position_closed: 0
+
+  button:
+    - name: "Driveway Gate Pedestrian Open"
+      unique_id: "driveway_gate_ped_open"
+      command_topic: "tasmota_gate_new/cmd"
+      payload_press: "PED_OPEN"
+
+    - name: "Driveway Gate Refresh Status"
+      unique_id: "driveway_gate_refresh_status"
+      command_topic: "tasmota_gate_new/cmd"
+      payload_press: "STATUS"
+
+  sensor:
+    - name: "Driveway Gate Mode"
+      unique_id: "driveway_gate_mode"
+      state_topic: "tasmota_gate_new/mode"
+
+    - name: "Driveway Gate Action"
+      unique_id: "driveway_gate_action"
+      state_topic: "tasmota_gate_new/action"
+
+    - name: "Driveway Gate Position"
+      unique_id: "driveway_gate_position"
+      state_topic: "tasmota_gate_new/position"
+      unit_of_measurement: "%"

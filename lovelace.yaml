@@ -1,0 +1,51 @@
+type: vertical-stack
+cards:
+  - type: entities
+    title: Driveway Gate
+    entities:
+      - entity: sensor.driveway_gate_action
+        name: Action
+      - entity: sensor.driveway_gate_mode
+        name: Mode
+      - entity: sensor.driveway_gate_position
+        name: Position
+
+  - type: grid
+    columns: 2
+    square: false
+    cards:
+      - type: button
+        name: Open Gate
+        icon: mdi:gate-open
+        tap_action:
+          action: call-service
+          service: cover.open_cover
+          target:
+            entity_id: cover.driveway_gate
+
+      - type: button
+        name: Close Gate
+        icon: mdi:gate
+        tap_action:
+          action: call-service
+          service: cover.close_cover
+          target:
+            entity_id: cover.driveway_gate
+
+      - type: button
+        name: Stop
+        icon: mdi:stop
+        tap_action:
+          action: call-service
+          service: cover.stop_cover
+          target:
+            entity_id: cover.driveway_gate
+
+      - type: button
+        name: Pedestrian Open
+        icon: mdi:walk
+        tap_action:
+          action: call-service
+          service: button.press
+          target:
+            entity_id: button.driveway_gate_pedestrian_open
