@@ -1,6 +1,9 @@
+# First and formoest, shoutout to RPJacobs 
+Who did the majority from which uppon I made modifications to make the codes more lean and readable, and focusing only on the solution to create a local control of the CB19 board and rip out TMT-Chow from the equasion. Original source https://github.com/RPJacobs
+
 # CB19-GATE-CONTROL-SYSTEM
 
-Removing my TMT CHOW remote gate control, because it connects to an external server (security risk). Intergrate RS323 via ESP32 with MQTT > Homebridge > Applehomekit
+Removing my TMT CHOW remote gate control, because it connects to an external server (security risk). Intergrate RS323 via ESP32 with MQTT > Homeassistant
 
 Step 1:
 Open the TMT module
