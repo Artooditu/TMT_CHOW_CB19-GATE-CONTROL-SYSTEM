@@ -50,7 +50,7 @@ Final step is a nice dashboard from [lovelace.yaml](https://github.com/Artooditu
 
 
 
-I also left the control box documentation attached if needed, but did not expose the settings as if should never be changed once the gate is installed. Also this can be done at the gate:
+I also left the control box documentation attached if needed, but did not expose the settings as it should never be changed once the gate is installed. Also this can be done at the gate:
 [CB19U-34100-125-10-C_CB19_manual_std_Wi-Fi_au.pdf](CB19U-34100-125-10-C_CB19_manual_std_Wi-Fi_au.pdf) 
 
 
