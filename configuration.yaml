@@ -56,3 +56,4 @@ mqtt:
     - name: "Driveway Gate Health"
       unique_id: "driveway_gate_health"
       state_topic: "tasmota_gate_new/health"
+      expire_after: 300
