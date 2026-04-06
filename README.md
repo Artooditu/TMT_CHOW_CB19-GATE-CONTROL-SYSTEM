@@ -6,9 +6,9 @@ Who did the majority from which uppon I made modifications to make the codes mor
 Removing my TMT CHOW remote gate control, because it connects to an external server (security risk). Intergrate RS323 via ESP32 with MQTT > Homeassistant
 
 What you need:
-XHP-5 cable (https://www.hestore.hu/prod_10041606.html)
-Working MQTT integration in to Home Assistant
-TMT CHOW based gate opener :)
+- XHP-5 cable (https://www.hestore.hu/prod_10041606.html)
+- Working MQTT integration in to Home Assistant
+- TMT CHOW based gate opener :)
 
 Step 0: History of the project:
 RPJacobs did the investigation and found out that TMT-Chow module and Mainboard uses unencrytpted unauthenticated text based commands on a serial. My rewrite will only focus on the remote operation and status read.
@@ -30,11 +30,11 @@ Open the TMT module
 
 Here we can find the PIN OUT
 
-RST
-V5
-RX
-TX
-GND
+- RST
+- V5
+- RX
+- TX
+- GND
 
 Instead of soldering I used krimped NSR style connectors for ESP connection, my goal is to save the original cable and device as a backup concept and store it in the drawer and never ever use it again :D
 
