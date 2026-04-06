@@ -68,7 +68,6 @@ class Gate : Driver
 
     # Initial MQTT setup
     self.setup_mqtt_state()
-    self.start_heartbeat_timer()
   end
 
   # --------------------------------------------------
@@ -83,16 +82,8 @@ class Gate : Driver
   # --------------------------------------------------
   def setup_mqtt_state()
     self.subscribe()
-    # Publish immediate online / heartbeat on MQTT connect
-    self.publish_healthcheck()
+    mqtt.publish(self.tp("availability"), "online")
     self.request_status()
-  end
-
-  # --------------------------------------------------
-  # Start periodic MQTT heartbeat every 60 seconds
-  # --------------------------------------------------
-  def start_heartbeat_timer()
-    tasmota.set_timer(60000, true, /->self.on_heartbeat_timer())
   end
 
   # --------------------------------------------------
@@ -100,24 +91,6 @@ class Gate : Driver
   # --------------------------------------------------
   def on_mqtt_connected()
     self.setup_mqtt_state()
-  end
-
-  # --------------------------------------------------
-  # Publish MQTT health / availability heartbeat
-  # - availability: simple online marker
-  # - health: recurring heartbeat for HA expire_after
-  # --------------------------------------------------
-  def publish_healthcheck()
-    mqtt.publish(self.tp("availability"), "online")
-    mqtt.publish(self.tp("health"), "alive")
-  end
-
-  # --------------------------------------------------
-  # Heartbeat timer callback
-  # - called every 60 seconds
-  # --------------------------------------------------
-  def on_heartbeat_timer()
-    self.publish_healthcheck()
   end
 
   # --------------------------------------------------
