@@ -15,6 +15,9 @@ mqtt:
       position_topic: "tasmota_gate_new/position"
       position_open: 95
       position_closed: 0
+      availability_topic: "tasmota_gate_new/availability"
+      payload_available: "online"
+      payload_not_available: "offline"
 
   button:
     - name: "Driveway Gate Pedestrian Open"
@@ -31,12 +34,25 @@ mqtt:
     - name: "Driveway Gate Mode"
       unique_id: "driveway_gate_mode"
       state_topic: "tasmota_gate_new/mode"
+      availability_topic: "tasmota_gate_new/availability"
+      payload_available: "online"
+      payload_not_available: "offline"
 
     - name: "Driveway Gate Action"
       unique_id: "driveway_gate_action"
       state_topic: "tasmota_gate_new/action"
+      availability_topic: "tasmota_gate_new/availability"
+      payload_available: "online"
+      payload_not_available: "offline"
 
     - name: "Driveway Gate Position"
       unique_id: "driveway_gate_position"
       state_topic: "tasmota_gate_new/position"
       unit_of_measurement: "%"
+      availability_topic: "tasmota_gate_new/availability"
+      payload_available: "online"
+      payload_not_available: "offline"
+      
+    - name: "Driveway Gate Health"
+      unique_id: "driveway_gate_health"
+      state_topic: "tasmota_gate_new/health"
