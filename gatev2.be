@@ -38,10 +38,14 @@ class Gate : Driver
   # "Stopped"
   var action
 
+  # Heartbeat counter
+  var heartbeat_ticks
+
   # --------------------------------------------------
   # init()
   # --------------------------------------------------
   def init()
+    
     # ===== MQTT topic base =====
     self.topic_base = "tasmota_gate_new"
 
@@ -51,6 +55,7 @@ class Gate : Driver
     self.position = 0
     self.mode = "closed"
     self.action = "Stopped"
+    self.heartbeat_ticks = 0
 
     # ===== Serial port =====
     # Working configuration:
@@ -68,6 +73,8 @@ class Gate : Driver
 
     # Initial MQTT setup
     self.setup_mqtt_state()
+    
+    
   end
 
   # --------------------------------------------------
@@ -82,7 +89,7 @@ class Gate : Driver
   # --------------------------------------------------
   def setup_mqtt_state()
     self.subscribe()
-    mqtt.publish(self.tp("availability"), "online")
+    self.publish_healthcheck()
     self.request_status()
   end
 
@@ -91,6 +98,16 @@ class Gate : Driver
   # --------------------------------------------------
   def on_mqtt_connected()
     self.setup_mqtt_state()
+  end
+
+  # --------------------------------------------------
+  # Publish MQTT health / availability heartbeat
+  # - availability: simple online marker
+  # - health: recurring heartbeat for HA expire_after
+  # --------------------------------------------------
+  def publish_healthcheck()
+    mqtt.publish(self.tp("availability"), "online")
+    mqtt.publish(self.tp("health"), "alive")
   end
 
   # --------------------------------------------------
@@ -450,6 +467,12 @@ class Gate : Driver
 
     if self.readStatus
       self.request_status()
+    end
+
+    self.heartbeat_ticks += 1
+    if self.heartbeat_ticks >= 60
+      self.heartbeat_ticks = 0
+      self.publish_healthcheck()
     end
   end
 end
